@@ -21,7 +21,7 @@ public class Configurator
 		{
 			var basePath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
 			var builder = new ConfigurationBuilder()
-				.setBasePath(basePath)
+				.SetBasePath(basePath)
 				.AddJsonFile("appsettings.json");
 
 			var appSettingFiles = Directory.EnumerateFiles(basePath ?? string.Empty, "appsettings.*.json");
