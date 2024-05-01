@@ -2,10 +2,10 @@
 using TestRailProject.Helpers;
 
 namespace TestRailProject.Core;
+
+public class Browser
 {
-	public class Browser
-	{
-	public IWebDriver Driver { get; }
+public IWebDriver Driver { get; }
 
 	public Browser()
 	{

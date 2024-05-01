@@ -1,6 +1,6 @@
 using OpenQA.Selenium;
 
-namespace TestRailProject.Pages
+namespace TestRail.Pages
 {
     public class DashboardPage(IWebDriver? driver, bool openByURL = false) : BasePage(driver, openByURL)
     {
