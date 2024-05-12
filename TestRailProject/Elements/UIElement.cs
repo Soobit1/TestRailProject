@@ -41,6 +41,11 @@ public class UIElement : IWebElement
         _webElement = webElement;
     }
 
+    public UIElement(IWebDriver webDriver, By by) : this(webDriver, webDriver.FindElement(by))
+    {
+
+    }
+
     public IWebElement FindElement(By by)
     {
         return _webElement.FindElement(by);
@@ -50,6 +55,7 @@ public class UIElement : IWebElement
     {
         return new UIElement(_webDriver, FindElement(by));
     }
+
     public List<UIElement> FindUIElements(By by)
     {
         var result = new List<UIElement>();
