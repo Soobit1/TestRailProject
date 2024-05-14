@@ -8,10 +8,10 @@ namespace TestRailProject.Elements;
 
 public class UIElement : IWebElement
 {
-    private IWebDriver _webDriver;
-    private WaitsHelper _waitsHelper;
-    private IWebElement _webElement;
-    private Actions _actions;
+    protected IWebDriver _webDriver;
+    protected WaitsHelper _waitsHelper;
+    protected IWebElement _webElement;
+    protected Actions _actions;
 
     public string TagName => _webElement.TagName;
 
@@ -66,6 +66,17 @@ public class UIElement : IWebElement
 
         return result;
     }
+
+    /*public List<T> FindUIElementsT<T>(By by) where T : UIElement
+    {
+        var result = new List<T>();
+        foreach (var webElement in FindElements(by))
+        {
+            result.Add((T)Activator.CreateInstance(typeof(T), _webDriver, webElement));
+        }
+
+        return result;
+    }*/
 
     public void Clear()
     {

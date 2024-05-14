@@ -13,7 +13,7 @@ public class BaseTest
 {
     protected IWebDriver Driver { get; private set; }
 
-    //todo
+
     protected NavigationSteps _navigationSteps;
     protected TestCaseSteps _testCaseSteps;
 
@@ -47,6 +47,7 @@ public class BaseTest
 
                 // Прикрепление скриншота к отчету Allure
                 //AllureApi.AddAttachment("Screenshot", "image/png", screenshotBytes);
+                //AllureApi.AddAttachment("error.txt", "text/plain", Encoding.UTF8.GetBytes(TestContext.CurrentContext.Result.Message));
             }
         }
         catch (Exception e)

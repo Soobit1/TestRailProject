@@ -15,15 +15,17 @@ public class TestCasePage(IWebDriver? driver) : BasePage(driver)
     private const string END_POINT = "index.php?/admin/projects/cases/view";
 
     private static readonly By TitleBy = By.ClassName("content-header-title");
+    private static readonly By IdBy = By.ClassName("content-header-id");
+
     private static readonly By SuccessMessageBy = By.ClassName("message-success");
     private static readonly By SectionBy = By.ClassName("content-breadcrumb");
-
     private static readonly By TypeBy = By.Id("cell_type_id");
     private static readonly By PriorityBy = By.Id("cell_priority_id");
     private static readonly By AssignedBy = By.Id("cell_assignedto");
     private static readonly By EstimateBy = By.Id("cell_estimate");
     private static readonly By RefsBy = By.Id("cell_refs");
     private static readonly By AutoBy = By.Id("cell_custom_automation_type");
+
 
     private static readonly By AttachmentBy = By.Id("entityAttachmentList");
 
@@ -47,7 +49,7 @@ public class TestCasePage(IWebDriver? driver) : BasePage(driver)
     public IWebElement Refs => WaitsHelper.WaitForExists(RefsBy);
     public IWebElement Auto => WaitsHelper.WaitForExists(AutoBy);
     public IWebElement Attachment => WaitsHelper.WaitForExists(AttachmentBy);
-
+    public IWebElement TestCaseId => WaitsHelper.WaitForExists(IdBy);
 }
 
     
