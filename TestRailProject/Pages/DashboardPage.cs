@@ -1,6 +1,8 @@
 using OpenQA.Selenium;
 
+
 namespace TestRailProject.Pages
+
 {
     public class DashboardPage(IWebDriver? driver, bool openByURL = false) : BasePage(driver, openByURL)
     {
@@ -9,6 +11,7 @@ namespace TestRailProject.Pages
         // Описание элементов
         private static readonly By SidebarProjectsAddButtonBy = By.Id("sidebar-projects-add");
         private static readonly By ProjectBy = By.XPath("//div[text() = 'ExampleProject2']");
+
         
         protected override bool EvaluateLoadedStatus()
         {
@@ -29,5 +32,6 @@ namespace TestRailProject.Pages
 
         public IWebElement SidebarProjectsAddButton => WaitsHelper.WaitForExists(SidebarProjectsAddButtonBy);
         public IWebElement TargetProject => WaitsHelper.WaitForExists(ProjectBy);
+
     }
 }
