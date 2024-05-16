@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "TestRailProject": {
+      "commandName": "Project",
+      "nativeDebugging": false
+    }
+  }
+}

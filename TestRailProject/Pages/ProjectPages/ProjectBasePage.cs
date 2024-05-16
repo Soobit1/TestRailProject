@@ -1,5 +1,6 @@
 using OpenQA.Selenium;
-using TestRail.Elements;
+using TestRailProject.Elements;
+
 
 namespace TestRailProject.Pages.ProjectPages;
 

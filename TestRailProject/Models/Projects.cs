@@ -1,7 +1,6 @@
 ﻿using System.Text.Json.Serialization;
-using TestRailProject.Models;
 
-namespace TestRail.Models;
+namespace TestRailProject.Models;
 
 public record Projects
 {

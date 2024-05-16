@@ -6,12 +6,12 @@ using TestRailProject.Helpers;
 
 namespace TestRailProject.Elements;
 
-public class UIElement : IWebElement
+public class UIElement : IWebElement, IWrapsElement
 {
-    private IWebDriver _webDriver;
-    private WaitsHelper _waitsHelper;
-    private IWebElement _webElement;
-    private Actions _actions;
+    protected IWebDriver _webDriver;
+    protected WaitsHelper _waitsHelper;
+    protected IWebElement _webElement;
+    protected Actions _actions;
 
     public string TagName => _webElement.TagName;
 
@@ -27,7 +27,9 @@ public class UIElement : IWebElement
 
     public bool Displayed => _webElement.Displayed;
 
-    private UIElement(IWebDriver webDriver)
+    public IWebElement WrappedElement => _webElement;
+
+    public UIElement(IWebDriver webDriver)
     {
         _webDriver = webDriver;
         _waitsHelper = new WaitsHelper(webDriver, TimeSpan.FromSeconds(Configurator.WaitsTimeout));
@@ -41,6 +43,11 @@ public class UIElement : IWebElement
         _webElement = webElement;
     }
 
+    public UIElement(IWebDriver webDriver, By by) : this(webDriver, webDriver.FindElement(by))
+    {
+
+    }
+
     public IWebElement FindElement(By by)
     {
         return _webElement.FindElement(by);
@@ -50,6 +57,7 @@ public class UIElement : IWebElement
     {
         return new UIElement(_webDriver, FindElement(by));
     }
+
     public List<UIElement> FindUIElements(By by)
     {
         var result = new List<UIElement>();
@@ -60,6 +68,17 @@ public class UIElement : IWebElement
 
         return result;
     }
+
+    /*public List<T> FindUIElementsT<T>(By by) where T : UIElement
+    {
+        var result = new List<T>();
+        foreach (var webElement in FindElements(by))
+        {
+            result.Add((T)Activator.CreateInstance(typeof(T), _webDriver, webElement));
+        }
+
+        return result;
+    }*/
 
     public void Clear()
     {
