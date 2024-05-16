@@ -16,6 +16,7 @@ public class TestCasePage(IWebDriver? driver, bool openByURL = false) : BasePage
     private const string END_POINT = "index.php?/admin/projects/cases/view";
 
     private static readonly By TitleBy = By.ClassName("content-header-title");
+    private static readonly By NameBy = By.ClassName("content-header-title-compact");
     private static readonly By IdBy = By.ClassName("content-header-id");
 
     private static readonly By SuccessMessageBy = By.ClassName("message-success");
@@ -41,6 +42,7 @@ public class TestCasePage(IWebDriver? driver, bool openByURL = false) : BasePage
         return END_POINT;
     }
     public IWebElement Title => WaitsHelper.WaitForExists(TitleBy);
+    public IWebElement Name => WaitsHelper.WaitForExists(NameBy);
     public IWebElement SuccessMessage => WaitsHelper.WaitForExists(SuccessMessageBy);
     public IWebElement Section => WaitsHelper.WaitForExists(SectionBy).FindElement(By.TagName("a"));
     public IWebElement Type => WaitsHelper.WaitForExists(TypeBy);

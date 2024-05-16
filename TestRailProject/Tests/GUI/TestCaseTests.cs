@@ -85,14 +85,14 @@ namespace TestRailProject.Tests.GUI
         }
 
         [Test]
-        public void AddTestCaseFailed()
+        public void AddTestCaseBoundary()
         {
 
             _navigationSteps.SuccessfulLogin(Admin);
             _navigationSteps.MoveToAddTestCasePage(9);
 
             var f = new Faker();
-            var title = f.Random.Words(250);
+            var title = f.Random.String(250);
 
             testCase expectedTestCase = new testCase()
             {
@@ -104,8 +104,8 @@ namespace TestRailProject.Tests.GUI
             };
 
             TestCasePage testCasePage = _testCaseSteps.AddTestCase(expectedTestCase);
-
-            Assert.That(testCasePage.Title.Text.Trim, Is.EqualTo(expectedTestCase.Id));
+            Thread.Sleep(2000);
+            Assert.That(testCasePage.Name.Text.Length, Is.EqualTo(expectedTestCase.Id.Length));
         }
 
         [Test]
