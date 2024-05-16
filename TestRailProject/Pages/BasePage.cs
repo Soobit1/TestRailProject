@@ -1,9 +1,8 @@
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
-using TestRail.Helpers;
-using TestRail.Helpers.Configuration;
+using TestRailProject.Helpers;
 
-namespace TestRail.Pages;
+namespace TestRailProject.Pages;
 
 public abstract class BasePage : LoadableComponent<BasePage>
 {
