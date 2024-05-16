@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace TestRailProject.Elements;
 
 public class CheckBox
-{/*
+{
     private UIElement _uiElement;
 
     public CheckBox(IWebDriver driver, By by)
@@ -23,6 +23,10 @@ public class CheckBox
 
     public bool Check()
     {
-        _uiElement.
-    }*/
+        if (_uiElement.Selected) 
+        { 
+            return true; 
+        }
+        else return false;
+    }
 }

@@ -48,34 +48,23 @@ public class NavigationSteps(IWebDriver? driver) : BaseStep(driver)
 
     public ProjectDetailsPage MoveToProjectDetailsPage()
     {   
-        return new ProjectDetailsPage(Driver);
+        return new ProjectDetailsPage(Driver, true);
     }
 
-    public AddTestCasePage MoveToAddTestCasePage()
+    public AddTestCasePage MoveToAddTestCasePage(int suiteId)
     {
-        return new AddTestCasePage(Driver);
+        return new AddTestCasePage(Driver, suiteId, true);
     }
 
-    public TestSuitesPage MoveToTestSuitesPage()
+    public TestSuitesPage MoveToTestSuitesPage(int suiteId)
     {
-        return new TestSuitesPage(Driver);
+        return new TestSuitesPage(Driver, suiteId, true);
     }
 
     public ProjectDetailsPage ClickOnProject(IWebElement webElement)
     {
         DashboardPage.TargetProject.Click();
         return new ProjectDetailsPage(Driver);
-    }
-
-    public DeleteDialog ClickOnDelete()
-    {
-        TestSuitesPage.DeleteCases.Click();
-        return new DeleteDialog(Driver, By.Id("deleteCases"));
-    }
-
-    public void SelectSection(IWebDriver driver, string value)
-    {
-
     }
 
 }

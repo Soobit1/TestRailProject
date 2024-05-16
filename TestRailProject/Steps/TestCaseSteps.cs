@@ -1,10 +1,12 @@
 ﻿using OpenQA.Selenium;
+using OpenQA.Selenium.DevTools.V122.Runtime;
 using OpenQA.Selenium.Interactions;
 using OpenQA.Selenium.Support.UI;
 using SeleniumExtras.WaitHelpers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using TestRailProject.Elements;
@@ -37,5 +39,45 @@ public class TestCaseSteps(IWebDriver? driver) : BaseStep(driver)
         return new TestCasePage(driver);
     }
 
+    public TestSuitesPage DeleteTestCase(int sectionId, int rowId)
+    {
 
+        TestSuitesPage = new TestSuitesPage(driver);
+
+        Console.WriteLine(TestSuitesPage.GetSectionByID(sectionId));
+        Console.WriteLine(TestSuitesPage.GetSectionByID(sectionId)?.GetTestRow(rowId));
+        
+
+        TestSuitesPage.GetSectionByID(sectionId)?
+            .GetTestRow(rowId)?
+            .Delete();
+
+        TestSuitesPage.DeleteDialog.Submit();
+
+        return TestSuitesPage;
+    }
+    
+    public bool FileUpload(string fileName, int suiteId)
+    {
+        string assemblyPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+        string filePath = Path.Combine(assemblyPath, "Resources", fileName);
+
+        AddTestCasePage = new AddTestCasePage(Driver, suiteId, true);
+
+        AddTestCasePage.Attachment.SendKeys(filePath);
+
+        return AddTestCasePage.AttachedItem.Displayed;
+    }
+
+    /*
+    public DeleteDialog DialogDeleteTest()
+    {
+        DeleteDialog deleteDialog = new DeleteDialog();
+
+        deleteDialog.ClickDeletePermanently();
+
+        deleteDialog.ClickDeletePermanently();
+
+        return deleteDialog;
+    }*/
 }

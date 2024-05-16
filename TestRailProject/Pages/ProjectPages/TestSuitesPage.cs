@@ -10,29 +10,32 @@ using TestRailProject.Helpers;
 
 namespace TestRailProject.Pages.ProjectPages
 {
-    public class TestSuitesPage(IWebDriver? driver, bool openByURL = false) : BasePage(driver, openByURL)
+    public class TestSuitesPage(IWebDriver? driver, int? suiteId = null, bool openByURL = false) : BasePage(driver, openByURL)
     {
-        private const string END_POINT = "index.php?/suites/view";
+        private const string END_POINT = "/index.php?/suites/view/";
 
-        private static readonly By TitleBy = By.XPath("/html/head/title");
+        private static readonly By AddTestCaseButtonBy = By.Id("sidebar-cases-add");
         private static readonly By GroupsBy = By.Id("groups");
-        private static readonly By SectionBy = By.CssSelector(".group.grid-container");
+        private static readonly By SectionBy = By.XPath("//*[contains(@id, 'section-')]");
         private static readonly By TooltipBy = By.XPath(".//a[contains(@tooltip-header,'Copy or Move Cases')]");
         private static readonly By DeleteCaseBy = By.Id("deleteCases");
+        private static readonly By DeletionDialogBy = By.Id("dialog-ident-casesDeletionDialog");
 
         protected override bool EvaluateLoadedStatus()
         {
-            return Title.Displayed;
+            return WaitsHelper.WaitForVisibilityLocatedBy(AddTestCaseButtonBy).Displayed;
         }
 
         protected override string GetEndpoint()
         {
-            return END_POINT;
+            return END_POINT + suiteId;
         }
 
-        public IWebElement Title => WaitsHelper.WaitForExists(TitleBy);
+        public Button AddTestCaseButton => new(Driver, AddTestCaseButtonBy);
         public IWebElement Tooltip => WaitsHelper.WaitForExists(TooltipBy);
-        public Button DeleteCases = new Button(driver, DeleteCaseBy);
+        public Button DeleteCases => new(driver, DeleteCaseBy);
+
+        public DeleteDialog DeleteDialog => new(Driver, WaitsHelper.WaitForVisibilityLocatedBy(DeletionDialogBy));
 
         public List<Section> GetSections()
         {
@@ -44,19 +47,11 @@ namespace TestRailProject.Pages.ProjectPages
             return result;
         }
 
-        public Section? SectionByTitle(string title)
+        public Section? GetSectionByID(int sectionId)
         {
-            //return GetSections().First(s => s.Title.Text.Equals(title)); 
-            foreach (var section in GetSections())
-            {
-                if (section.Title.Text.Trim().Equals(title))
-                {
-                    return section;
-                }
-            }
-            return null;
+            return GetSections().FirstOrDefault(section => section.ID.Equals("section-" + sectionId));
         }
-
-
     }
+
+
 }

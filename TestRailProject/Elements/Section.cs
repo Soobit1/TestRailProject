@@ -4,38 +4,48 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TestRail.Elements;
+using TestRailProject.Helpers;
 
 namespace TestRailProject.Elements;
 
-public class Section : UIElement
+public class Section
 {
-    public Section(IWebDriver driver, By by) : base(driver, by) { }
+    private UIElement _uiElement;
+    private List<TestRow> _rows;
 
-    public Section(IWebDriver driver, IWebElement e) : base(driver, e) { }
-
-    public IWebElement Title => FindElement(By.ClassName("title"));
-
-    public List<TestRow> TestRows()
+    public Section(IWebDriver webDriver, IWebElement element)
     {
-        List<TestRow> result = new List<TestRow>();
-        foreach (var elem in _webElement.FindElements(By.ClassName("caseRow")))
+        _uiElement = new UIElement(webDriver, element);
+        _rows = new List<TestRow>();
+
+        foreach (var rowElement in _uiElement.FindUIElements(By.XPath("//tr[@class!='header']")))
         {
-            result.Add(new TestRow(_webDriver, elem));
+            _rows.Add(new TestRow(webDriver, rowElement));
         }
-        return result;
     }
 
-    public TestRow? RowById(string id)
+    public Section(IWebDriver webDriver, By by)
     {
-        foreach (var row in TestRows())
+        _uiElement = new UIElement(webDriver, by);
+        _rows = new List<TestRow>();
+
+        foreach (var rowElement in _uiElement.FindUIElements(By.XPath("//tr[@class!='header']")))
         {
-            if (row.GetId().Equals(id))
-            {
-                return row;
-            }
+            _rows.Add(new TestRow(webDriver, rowElement));
         }
-        return null;
     }
 
-    
+    public TestRow? GetTestRow(int testId)
+    {
+        return _rows.FirstOrDefault(row => row.ID.Equals("row-" + testId));
+    }
+
+    public void SelectAll()
+    {
+        _uiElement.FindElement(By.ClassName("header")).FindElement(By.ClassName("selectionCheckbox")).Click();
+    }
+
+    public IList<TestRow> Rows => _rows;
+    public String ID => _uiElement.GetAttribute("id");
 }

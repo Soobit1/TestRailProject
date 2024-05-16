@@ -6,7 +6,7 @@ using TestRailProject.Helpers;
 
 namespace TestRailProject.Elements;
 
-public class UIElement : IWebElement
+public class UIElement : IWebElement, IWrapsElement
 {
     protected IWebDriver _webDriver;
     protected WaitsHelper _waitsHelper;
@@ -27,7 +27,9 @@ public class UIElement : IWebElement
 
     public bool Displayed => _webElement.Displayed;
 
-    private UIElement(IWebDriver webDriver)
+    public IWebElement WrappedElement => _webElement;
+
+    public UIElement(IWebDriver webDriver)
     {
         _webDriver = webDriver;
         _waitsHelper = new WaitsHelper(webDriver, TimeSpan.FromSeconds(Configurator.WaitsTimeout));

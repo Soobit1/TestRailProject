@@ -6,11 +6,12 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using TestRailProject.Elements;
 
 namespace TestRailProject.Pages.ProjectPages;
 
 
-public class TestCasePage(IWebDriver? driver) : BasePage(driver)
+public class TestCasePage(IWebDriver? driver, bool openByURL = false) : BasePage(driver, openByURL)
 {
     private const string END_POINT = "index.php?/admin/projects/cases/view";
 

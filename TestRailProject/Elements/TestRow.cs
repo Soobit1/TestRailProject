@@ -1,46 +1,61 @@
 ﻿using OpenQA.Selenium;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using OpenQA.Selenium.Interactions;
 using TestRailProject.Helpers;
 
-namespace TestRailProject.Elements;
+namespace TestRail.Elements;
 
-public class TestRow : UIElement
+public class TestRow
 {
-    public TestRow(IWebDriver driver, By by) : base(driver, by)   {    }
+    private IWebDriver _webDriver;
+    private WaitsHelper _waitsHelper;
+    private IWebElement _webElement;
+    private Actions _actions;
 
-    public TestRow(IWebDriver driver, IWebElement webElement) : base(driver, webElement) { }
-    public string GetId()
+    private TestRow(IWebDriver webDriver)
     {
-        return FindElement(By.XPath("//td[@class='id']")).Text;
+        _webDriver = webDriver;
+        _waitsHelper = new WaitsHelper(webDriver, TimeSpan.FromSeconds(Configurator.WaitsTimeout));
+        _actions = new Actions(webDriver);
     }
 
-    public string GetTitle()
+    public TestRow(IWebDriver webDriver, By by) : this(webDriver)
     {
-        return FindElement(By.XPath("//td[@class='title']")).Text;
+        _webElement = _waitsHelper.WaitForExists(by);
     }
 
-    //public IWebElement Title => _waitsHelper.WaitForExists(By.XPath("//td[@class='title']"));
-
-    public RadioButton CheckBox()
+    public TestRow(IWebDriver webDriver, IWebElement webElement) : this(webDriver)
     {
-        return new RadioButton(_webDriver, By.XPath(""));
+        _webElement = webElement;
+    }
+
+    public void Click()
+    {
+        _webElement.Click();
+    }
+
+    public void Edit()
+    {
+        _actions.MoveToElement(_webElement).Perform();
+        _waitsHelper.WaitChildElement(_webElement, By.CssSelector(".action.icon-small-edit")).Click();
+    }
+
+    public void Delete()
+    {
+        _actions.MoveToElement(_webElement).Perform();
+        _waitsHelper.WaitChildElement(_webElement, By.ClassName("deleteLink")).Click();
     }
 
     public void Select()
     {
-        FindElement(By.ClassName("selectionCheckbox")).Click();
+        _waitsHelper.WaitChildElement(_webElement, By.ClassName("selectionCheckbox")).Click();
     }
 
     public bool IsSelected()
     {
-        return FindElement(By.ClassName("selectionCheckbox")).Selected;
+        var className = _webElement.GetAttribute("class");
+        return className.Contains("oddSelected") || className.Contains("evenSelected");
     }
 
-  
+    public string ID => _webElement.GetAttribute("id");
+    public IWebElement TitleText => _waitsHelper.WaitChildElement(_webElement, By.ClassName("title"));
 }
-
-

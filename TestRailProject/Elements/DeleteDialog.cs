@@ -7,23 +7,23 @@ using System.Threading.Tasks;
 
 namespace TestRailProject.Elements;
 
-public class DeleteDialog : UIElement
+public class DeleteDialog
 {
-    public DeleteDialog(IWebDriver? webDriver, By by) : base(webDriver, by)
-    {
 
+    private UIElement _uiElement;
+
+    public DeleteDialog(IWebDriver webDriver, By by)
+    {
+        _uiElement = new UIElement(webDriver, by);
     }
 
-    public void ClickMarkAsDelete()
+    public DeleteDialog(IWebDriver webDriver, IWebElement webElement)
     {
-        _webDriver.FindElement(By.Id("deleteCaseDialogActionDefault")).Click();
+        _uiElement = new UIElement(webDriver, webElement);
     }
-    public void ClickDeletePermanently()
-    {
-        _webDriver.FindElement(By.Id("deleteCaseDialogActionSecondary")).Click();
-    }
-    public void ClickCancel()
-    {
-        _webDriver.FindElement(By.Id("deleteCaseDialogActionClose")).Click();  
-    }
+
+    public void Cancel() => _uiElement.FindElement(By.ClassName("button-cancel")).Click();
+    public void Submit() => _uiElement.FindElement(By.ClassName("button-ok")).Click();
+    public bool IsDisplayed => _uiElement.Displayed;
+
 }

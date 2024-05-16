@@ -4,7 +4,7 @@ namespace TestRailProject.Pages.ProjectPages;
 
 public class ProjectDetailsPage(IWebDriver? driver, bool openByURL = false) : BasePage(driver, openByURL)
 {
-    private const string END_POINT = "index.php?/projects/overview";
+    private const string END_POINT = "/index.php?/projects/overview/";
     
     // Описание элементов
     private static readonly By OverviewTabBy = By.Id("navigation-projects");
