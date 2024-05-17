@@ -6,6 +6,7 @@ using TestRailProject.Models;
 using TestRailProject.Pages.ProjectPages;
 using Bogus;
 using NUnit.Allure.Attributes;
+using Allure.Commons;
 
 
 namespace TestRailProject.Tests.GUI;
@@ -19,6 +20,9 @@ internal class GUITests : BaseTest
     [Test]
     [Category("Regression")]
     [Description("Adding a new test case")]
+    [AllureFeature("Positive UI Tests")]
+    [AllureSeverity(SeverityLevel.critical)]
+    [AllureOwner("Admin")]
     public void AddTestCase()
     {
 
@@ -66,6 +70,9 @@ internal class GUITests : BaseTest
     [Test]
     [Category("Regression")]
     [Description("File upload function for new test case")]
+    [AllureFeature("Positive UI Tests")]
+    [AllureSeverity(SeverityLevel.normal)]
+    [AllureOwner("Admin")]
     public void TestCaseUploadFile()
     {
 
@@ -80,6 +87,9 @@ internal class GUITests : BaseTest
     [Category("Smoke")]
     [Category("Regression")]
     [Description("Test case title boundary")]
+    [AllureFeature("Negative UI Tests")]
+    [AllureSeverity(SeverityLevel.minor)]
+    [AllureOwner("Admin")]
     public void AddTestCaseBoundary()
     {
 
@@ -87,7 +97,7 @@ internal class GUITests : BaseTest
         _navigationSteps.MoveToAddTestCasePage(9);
 
         var f = new Faker();
-        var title = f.Random.String(250);
+        var title = f.Random.String2(260);
 
         testCase expectedTestCase = new testCase()
         {
@@ -100,12 +110,15 @@ internal class GUITests : BaseTest
 
         TestCasePage testCasePage = _testCaseSteps.AddTestCase(expectedTestCase);
         Thread.Sleep(2000);
-        Assert.That(testCasePage.Name.Text.Length, Is.EqualTo(expectedTestCase.Id.Length));
+        Assert.That(testCasePage.Name.Text.Length, Is.InRange(0,250));
     }
 
     [Test]
     [Category("Regression")]
     [Description("Deleteing a test case")]
+    [AllureFeature("Positive UI Tests")]
+    [AllureSeverity(SeverityLevel.critical)]
+    [AllureOwner("Admin")]
     public void DeleteTestCase()
     {
         _navigationSteps.SuccessfulLogin(Admin);
@@ -115,13 +128,16 @@ internal class GUITests : BaseTest
         Assert.That(page.DeleteDialog.IsDisplayed, Is.True);
 
         page.DeleteDialog.Submit();
-         Thread.Sleep(2000);
+        Thread.Sleep(2000);
         Assert.That(page.GetSectionByID(185)?.GetTestRow(2394), Is.Null);
     }
 
     [Test]
     [Category("Regression")]
     [Description("Dialog box display when deleting a test case")]
+    [AllureFeature("Positive UI Tests")]
+    [AllureSeverity(SeverityLevel.normal)]
+    [AllureOwner("Admin")]
     public void DialogBoxTest()
     {
         _navigationSteps.SuccessfulLogin(Admin);
@@ -137,6 +153,9 @@ internal class GUITests : BaseTest
     [Category("Smoke")]
     [Category("Regression")]
     [Description("Tooltip display after hover on test suites page")]
+    [AllureFeature("Positive UI Tests")]
+    [AllureSeverity(SeverityLevel.minor)]
+    [AllureOwner("Admin")]
     public void TooltipHoverTest()
     {
         _navigationSteps.SuccessfulLogin(Admin);

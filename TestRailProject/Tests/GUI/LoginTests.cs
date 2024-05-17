@@ -1,4 +1,5 @@
-﻿using AngleSharp.Dom;
+﻿using Allure.Commons;
+using AngleSharp.Dom;
 using NUnit.Allure.Attributes;
 using NUnit.Framework;
 using TestRailProject.Helpers;
@@ -12,6 +13,10 @@ public class LoginTest : BaseTest
     [Test]
     [Category("Smoke")]
     [Category("Regression")]
+    [Description("Successful login test")]
+    [AllureFeature("Positive UI Tests")]
+    [AllureSeverity(SeverityLevel.normal)]
+    [AllureOwner("Admin")]
     public void SuccessfulLoginTest()
     {
         Assert.That(
@@ -24,6 +29,10 @@ public class LoginTest : BaseTest
 
     [Test]
     [Category("Regression")]
+    [Description("Login with incorrect password")]
+    [AllureFeature("Negative UI Tests")]
+    [AllureSeverity(SeverityLevel.normal)]
+    [AllureOwner("Admin")]
     public void InvalidPasswordLoginTest()
     {
         Assert.That(
@@ -38,6 +47,11 @@ public class LoginTest : BaseTest
     }
 
     [Test]
+    [Category("Regression")]
+    [Description("Login with incorrect username")]
+    [AllureFeature("Negative UI Tests")]
+    [AllureSeverity(SeverityLevel.critical)]
+    [AllureOwner("Admin")]
     public void InvalidUsernameLoginTest()
     {
         Assert.That(
