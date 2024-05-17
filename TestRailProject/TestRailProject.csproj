@@ -43,6 +43,7 @@
 		<None Remove="appsettings.json" />
 		<None Remove="NLog.config" />
 		<None Remove="Resources\kitten.jpg" />
+		<None Remove="Resources\SuiteTestJson.json" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -53,6 +54,9 @@
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</Content>
 		<Content Include="Resources\kitten.jpg">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		<Content Include="Resources\SuiteTestJson.json">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</Content>
 	</ItemGroup>

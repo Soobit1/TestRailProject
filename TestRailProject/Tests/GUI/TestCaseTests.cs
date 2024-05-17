@@ -1,24 +1,10 @@
 ﻿using NUnit.Framework.Internal;
 using OpenQA.Selenium;
-using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Interactions;
-using OpenQA.Selenium.Support.UI;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection.Metadata;
-using System.Text;
-using System.Text.Json.Serialization;
-using System.Threading.Tasks;
 using System.Web;
-using TestRailProject.Core;
-using TestRailProject.Elements;
 using TestRailProject.Models;
-using TestRailProject.Pages;
 using TestRailProject.Pages.ProjectPages;
-using TestRailProject.Steps;
 using Bogus;
-using System.Security.Cryptography;
 using NUnit.Allure.Attributes;
 
 
