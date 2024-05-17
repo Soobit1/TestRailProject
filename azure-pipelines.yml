@@ -4,10 +4,9 @@
 # https://docs.microsoft.com/azure/devops/pipelines/languages/dotnet-core
 
 trigger:
-- feature/testsAPI
+- master
 
 pool: mylocalPool
-
 
 variables:
   solution: '**/*.sln'
@@ -15,25 +14,36 @@ variables:
   buildConfiguration: 'Debug'
 
 steps:
-- task: NuGetToolInstaller@1
+- task: NuGetToolInstaller@0
+  displayName: 'Use NuGet 6.x'
+  inputs:
+    versionSpec: 6.x
 
 - task: NuGetCommand@2
   inputs:
-    restoreSolution: '$(solution)'
+    command: 'restore'
+    restoreSolution: '**/*.sln'
 
+- script: |
+    echo "Using .NET SDK version:"
+    dotnet --version
+  displayName: 'Check .NET SDK Version'
+  
 - task: DotNetCoreCLI@2
+  displayName: 'Run test'
   inputs:
     command: 'test'
-    projects: 'TestRailProject/TestRailProject.csproj'
+    projects: "TestRailProject/TestRailProject.csproj"
 
 - task: PublishAllureReport@1
   displayName: Publish Report
   inputs:
     allureVersion: '2.27.0'
-    testResultsDir: TestRailProject/bin/Debug/net8.0/allure-results
+    testResultsDir: "TestRailProject/bin/Debug/net8.0/allure-results"
     reportName: Report
 
 - task: PublishPipelineArtifact@1
   inputs:
     targetPath: '$(Pipeline.Workspace)'
     publishLocation: 'pipeline'
+
