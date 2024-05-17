@@ -21,13 +21,15 @@ steps:
   inputs:
     restoreSolution: '$(solution)'
 
-- task: DotNetCoreCLI@2
-  displayName: 'Build solution'
+- task: UseDotNet@2
+  displayName: 'Install .NET Core SDK'
   inputs:
-    command: 'build'
-    arguments: '--configuration Debug'
+    version: 8.x
+    performMultiLevelLookup: true
+    includePreviewVersions: true # Required for preview versions
+    
 - task: DotNetCoreCLI@2
-  displayName: Run test
+  displayName: 'Run test'
   inputs:
     command: 'test'
     projects: 'TestRailProject/TestRailProject.csproj'
