@@ -18,6 +18,7 @@ internal class GUITests : BaseTest
     private const string ExpectedValidationErrorMessage = "Email/Login is required.";
 
     [Test]
+    [Order(2)]
     [Category("Regression")]
     [Description("Adding a new test case")]
     [AllureFeature("Positive UI Tests")]
@@ -68,6 +69,7 @@ internal class GUITests : BaseTest
     }
 
     [Test]
+    [Order(4)]
     [Category("Regression")]
     [Description("File upload function for new test case")]
     [AllureFeature("Positive UI Tests")]
@@ -84,6 +86,7 @@ internal class GUITests : BaseTest
     }
 
     [Test]
+    [Order(3)]
     [Category("Smoke")]
     [Category("Regression")]
     [Description("Test case title boundary")]
@@ -114,6 +117,7 @@ internal class GUITests : BaseTest
     }
 
     [Test]
+    [Order(1)]
     [Category("Regression")]
     [Description("Deleteing a test case")]
     [AllureFeature("Positive UI Tests")]
@@ -122,7 +126,9 @@ internal class GUITests : BaseTest
     public void DeleteTestCase()
     {
         var sectionId = 369;
-        var testRow = 4748;
+        //todo
+        var testRow = 4765;
+
         _navigationSteps.SuccessfulLogin(Admin);
         var page = _navigationSteps.MoveToTestSuitesPage(9);
         var row = page.GetSectionByID(sectionId)?.GetTestRow(testRow);
@@ -135,6 +141,7 @@ internal class GUITests : BaseTest
     }
 
     [Test]
+    [Order(5)]
     [Category("Regression")]
     [Description("Dialog box display when deleting a test case")]
     [AllureFeature("Positive UI Tests")]
@@ -152,6 +159,7 @@ internal class GUITests : BaseTest
 
 
     [Test]
+    [Order(6)]
     [Category("Smoke")]
     [Category("Regression")]
     [Description("Tooltip display after hover on test suites page")]

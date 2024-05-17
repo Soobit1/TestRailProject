@@ -14,6 +14,7 @@ public class DriverFactory
         chromeOptions.AddArgument("--incognito");
         chromeOptions.AddArgument("--disable-extensions");
         chromeOptions.AddArgument("--remote-debugging-pipe");
+        chromeOptions.AddArguments("--disable-gpu");
 
         chromeOptions.SetLoggingPreference(LogType.Browser, LogLevel.All);
         chromeOptions.SetLoggingPreference(LogType.Driver, LogLevel.All);
