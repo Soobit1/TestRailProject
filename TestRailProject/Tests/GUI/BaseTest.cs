@@ -48,8 +48,8 @@ public class BaseTest
                 Screenshot screenshot = ((ITakesScreenshot)Driver).GetScreenshot();
                 byte[] screenshotBytes = screenshot.AsByteArray;
 
-                AllureApi.AddAttachment("Screenshot", "image/png", screenshotBytes);
-                AllureApi.AddAttachment("error.txt", "text/plain", Encoding.UTF8.GetBytes(TestContext.CurrentContext.Result.Message));
+                //AllureApi.AddAttachment("Screenshot", "image/png", screenshotBytes);
+                //AllureApi.AddAttachment("error.txt", "text/plain", Encoding.UTF8.GetBytes(TestContext.CurrentContext.Result.Message));
             }
         }
         catch (Exception e)

@@ -128,16 +128,28 @@ internal class GUITests : BaseTest
         var sectionId = 369;
         //todo
         var testRow = 4765;
-
+        
         _navigationSteps.SuccessfulLogin(Admin);
         var page = _navigationSteps.MoveToTestSuitesPage(9);
-        var row = page.GetSectionByID(sectionId)?.GetTestRow(testRow);
+        /*var row = page.GetSectionByID(sectionId)?.GetTestRow(testRow);
 
         row?.Delete();
 
         page.DeleteDialog.Submit();
         Thread.Sleep(2000);
-        Assert.That(page.GetSectionByID(sectionId)?.GetTestRow(testRow), Is.Null);
+        Assert.That(page.GetSectionByID(sectionId)?.GetTestRow(testRow), Is.Null);*/
+
+        var tempRow = page.GetSections().First().Rows.First();
+
+        Console.WriteLine(tempRow.ID);
+        var testrowId = tempRow.ID;
+  
+
+        tempRow.Delete();
+        page.DeleteDialog.Submit();
+        Thread.Sleep(2000);
+
+        Assert.That(page.GetSectionByID(sectionId)?.GetTestRow(testrowId), Is.Null);
     }
 
     [Test]
