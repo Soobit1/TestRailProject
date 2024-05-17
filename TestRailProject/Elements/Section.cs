@@ -21,7 +21,10 @@ public class Section
 
         foreach (var rowElement in _uiElement.FindUIElements(By.XPath("//tr[@class!='header']")))
         {
-            _rows.Add(new TestRow(webDriver, rowElement));
+            if (rowElement.GetAttribute("rel") != null)
+            {
+                _rows.Add(new TestRow(webDriver, rowElement));
+            }
         }
     }
 
