@@ -2,9 +2,13 @@
 using TestRailProject.Services;
 using TestRailProject.Clients;
 using NUnit.Framework;
+using NUnit.Allure.Core;
 
 namespace TestRailProject.Tests.API;
 
+[Parallelizable(scope: ParallelScope.Fixtures)]
+
+[AllureNUnit]
 public class BaseApiTest
 {
     protected readonly Logger _logger = LogManager.GetCurrentClassLogger();

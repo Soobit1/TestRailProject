@@ -9,13 +9,19 @@ using TestRailProject.Helpers;
 using TestRailProject.Models;
 using RestSharp;
 using NUnit.Framework;
-
+using NUnit.Allure.Attributes;
 
 namespace TestRailProject.Tests.APITests;
+
+[TestFixture]
+
+[AllureSuite("API TestSuite Tests")]
 public class TestSuiteTest : BaseApiTest
 {
 
-    [Test(Description = "NFE POST api_test")]
+    [Test]
+    [Category("NFE")]
+    [Description("POST Add test suite")]
     public void AddSuiteTest()
     {
         var expectedSuite = TestDataHelper.AddTestSuite("SuiteTestJson.json");
@@ -34,7 +40,9 @@ public class TestSuiteTest : BaseApiTest
         });
     }
 
-    [Test(Description = "AFE GET api_test")]
+    [Test]
+    [Category("AFE")]
+    [Description("GET Get invalid test suite")]
     public void GetInvalidSuitTest()
     {
         var actualSuite = _testSuiteService?.GetSuiteAsync(0);

@@ -1,14 +1,17 @@
-﻿using Allure.Net.Commons;
-using AngleSharp.Dom;
+﻿using AngleSharp.Dom;
+using NUnit.Allure.Attributes;
 using NUnit.Framework;
 using TestRailProject.Helpers;
 using TestRailProject.Models;
 
 namespace TestRailProject.Tests.GUI;
 
+[AllureSuite("UI login screen tests")]
 public class LoginTest : BaseTest
 {
     [Test]
+    [Category("Smoke")]
+    [Category("Regression")]
     public void SuccessfulLoginTest()
     {
         Assert.That(
@@ -20,6 +23,7 @@ public class LoginTest : BaseTest
     }
 
     [Test]
+    [Category("Regression")]
     public void InvalidPasswordLoginTest()
     {
         Assert.That(

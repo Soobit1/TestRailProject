@@ -14,8 +14,9 @@ namespace TestRailProject.Tests.API;
 public class UserTestApi : BaseApiTest
 {
 
-    [Test(Description = "NFE GET api_test")]
-    [Category("API")]
+    [Test]
+    [Category("NFE")]
+    [Description("GET Current user")]
     public void GetCurrentUserTest()
     {
         int user = 1;
@@ -29,15 +30,15 @@ public class UserTestApi : BaseApiTest
         });
     }
 
-    [Test(Description = "NFE GET by email")]
+    [Test]
+    [Category("NFE")]
+    [Description("GET User by email")]
     public void GetUserByEmail()
     {
         var email = "fevogi5662@losvtn.com";
         var actualUser = _userService.GetUserByEmail(email);
-        Console.WriteLine("Actual User: " + actualUser?.ToString());
 
-        //Console.WriteLine("Username: " + actualUser?.UserName);
-        //Console.WriteLine("Email: " + actualUser?.Email);
+        Console.WriteLine("Actual User: " + actualUser?.ToString());
 
         Assert.Multiple(() =>
         {
@@ -46,8 +47,9 @@ public class UserTestApi : BaseApiTest
         });
     }
 
-    [Test(Description = "NFE POST api_test")]
-    [Category("API")]
+    [Test]
+    [Category("NFE")]
+    [Description("POST Update user params")]
     public void UpdateUserTest()
     {
         int userId = 1;
@@ -70,8 +72,9 @@ public class UserTestApi : BaseApiTest
         });
     }
 
-    [Test(Description = "AFE GET api_test")]
-    [Category("API")]
+    [Test]
+    [Category("AFE")]
+    [Description("GET User non-existing user")]
     public void GetInvalidUserTest()
     {
         int userId = 10;
