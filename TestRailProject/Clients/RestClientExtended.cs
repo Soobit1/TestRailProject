@@ -3,6 +3,7 @@ using NLog;
 using RestSharp;
 using RestSharp.Authenticators;
 using TestRailProject.Helpers;
+using TestRailProject.Models;
 
 namespace TestRailProject.Clients;
 
@@ -16,7 +17,9 @@ public sealed class RestClientExtended
         var options = new RestClientOptions(Configurator.AppSettings.URI ?? throw new InvalidOperationException())
         {
             Authenticator =
-                new HttpBasicAuthenticator(Configurator.Admin.UserName, Configurator.Admin.Password)
+                new HttpBasicAuthenticator(Configurator.Admin.UserName, Configurator.Admin.Password),
+            //ThrowOnAnyError = true,
+            //ThrowOnDeserializationError = true
         };
 
         _client = new RestClient(options);
@@ -79,19 +82,26 @@ public sealed class RestClientExtended
 
     public RestResponse Execute(RestRequest request)
     {
+        //Console.WriteLine("Request: " + request.Resource);
         LogRequest(request);
         var response = _client.Execute<RestResponse>(request);
         LogResponse(response);
+
+        //Console.WriteLine("Response Status: " + response.ResponseStatus);
+        //Console.WriteLine("Response Body: " + response.Content);
 
         return response;
     }
 
     public T Execute<T>(RestRequest request) where T : new()
     {
+        //Console.WriteLine("Request: " + request.Resource);
         LogRequest(request);
         var response = _client.Execute<T>(request);
         LogResponse(response);
+        //Console.WriteLine("Response Status: " + response.ResponseStatus);
+        //Console.WriteLine("Response Body: " + response.Content);
 
-        return response.Data;
+        return response.Data ?? throw new InvalidOperationException();
     }
 }

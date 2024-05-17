@@ -1,5 +1,6 @@
 ﻿using Allure.Net.Commons;
 using AngleSharp.Dom;
+using NUnit.Framework;
 using TestRailProject.Helpers;
 using TestRailProject.Models;
 

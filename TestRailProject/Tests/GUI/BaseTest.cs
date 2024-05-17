@@ -1,4 +1,5 @@
 ﻿using Allure.Net.Commons;
+using NUnit.Framework;
 using NUnit.Framework.Interfaces;
 using OpenQA.Selenium;
 using TestRailProject.Core;

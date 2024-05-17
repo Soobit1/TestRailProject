@@ -38,4 +38,22 @@
     <Using Include="NUnit.Framework" />
   </ItemGroup>
 
+	<ItemGroup>
+		<None Remove="appsettings.json" />
+		<None Remove="NLog.config" />
+		<None Remove="Resources\kitten.jpg" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Content Include="appsettings.json">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		<Content Include="NLog.config">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+		<Content Include="Resources\kitten.jpg">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+	</ItemGroup>
+
 </Project>
