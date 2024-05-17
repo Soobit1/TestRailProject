@@ -1,17 +1,9 @@
-﻿using NLog;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Text;
-using TestRailProject.Tests.API;
+﻿using System.Net;
 using TestRailProject.Helpers;
-using TestRailProject.Models;
-using RestSharp;
-using NUnit.Framework;
-using NUnit.Allure.Attributes;
 
-namespace TestRailProject.Tests.APITests;
+using Allure.NUnit.Attributes;
+
+namespace TestRailProject.Tests.API;
 
 [TestFixture]
 
@@ -30,8 +22,8 @@ public class TestSuiteTest : BaseApiTest
         var actualSuite = _testSuiteService?.AddSuite(expectedSuite, 4);
         _logger.Info("Actual Suite: " + actualSuite?.ToString());
 
-        Console.WriteLine($"Suite Name: {actualSuite?.Result.Name}," +
-                          $"Suite Description: {actualSuite?.Result.Description}, Suite Id: {actualSuite?.Id}");
+        //Console.WriteLine($"Suite Name: {actualSuite?.Result.Name}," +
+        //                  $"Suite Description: {actualSuite?.Result.Description}, Suite Id: {actualSuite?.Id}");
         
         Assert.Multiple(() =>
         {

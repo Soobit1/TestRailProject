@@ -56,6 +56,6 @@ public class TestRow
         return className.Contains("oddSelected") || className.Contains("evenSelected");
     }
 
-    public string ID => _webElement.GetAttribute("id");
+    public int ID => Int32.Parse(_webElement.GetAttribute("rel").Trim());
     public IWebElement TitleText => _waitsHelper.WaitChildElement(_webElement, By.ClassName("title"));
 }

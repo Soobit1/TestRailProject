@@ -17,12 +17,16 @@ public class BaseTest
 {
     protected IWebDriver Driver { get; private set; }
 
-
     protected NavigationSteps _navigationSteps;
     protected TestCaseSteps _testCaseSteps;
 
-
     protected User? Admin { get; private set; }
+
+    [OneTimeSetUp]
+    public static void GlobalSetup()
+    {
+            AllureLifecycle.Instance.CleanupResultDirectory();
+    }
 
     [SetUp]
     public void Setup()
@@ -45,7 +49,6 @@ public class BaseTest
         {
             if (TestContext.CurrentContext.Result.Outcome.Status == NUnit.Framework.Interfaces.TestStatus.Failed)
             {
-
                 Screenshot screenshot = ((ITakesScreenshot)Driver).GetScreenshot();
                 byte[] screenshotBytes = screenshot.AsByteArray;
 

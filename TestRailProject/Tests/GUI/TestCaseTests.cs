@@ -1,25 +1,13 @@
 ﻿using NUnit.Framework.Internal;
 using OpenQA.Selenium;
-using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Interactions;
-using OpenQA.Selenium.Support.UI;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection.Metadata;
-using System.Text;
-using System.Text.Json.Serialization;
-using System.Threading.Tasks;
 using System.Web;
-using TestRailProject.Core;
-using TestRailProject.Elements;
 using TestRailProject.Models;
-using TestRailProject.Pages;
 using TestRailProject.Pages.ProjectPages;
-using TestRailProject.Steps;
 using Bogus;
-using System.Security.Cryptography;
-using NUnit.Allure.Attributes;
+//using NUnit.Allure.Attributes;
+using Allure.NUnit.Attributes;
+using Allure.Net.Commons;
 
 
 namespace TestRailProject.Tests.GUI;
@@ -31,8 +19,12 @@ internal class GUITests : BaseTest
     private const string ExpectedValidationErrorMessage = "Email/Login is required.";
 
     [Test]
+    [Order(2)]
     [Category("Regression")]
     [Description("Adding a new test case")]
+    [AllureFeature("Positive UI Tests")]
+    [AllureSeverity(SeverityLevel.critical)]
+    [AllureOwner("Admin")]
     public void AddTestCase()
     {
 
@@ -60,26 +52,19 @@ internal class GUITests : BaseTest
             Assert.That(testCasePage.Type.Text.Remove(0, 6), Is.EqualTo(expectedTestCase.Type));
             Assert.That(testCasePage.Priority.Text.Remove(0, 10), Is.EqualTo(expectedTestCase.Priority));
         });
-
-        var temp1 = testCasePage.TestCaseId.Text.Trim();
-        int rowId = Int32.Parse(temp1.Remove(0, 1));
-
-        string myUri = testCasePage.Section.GetAttribute("href");
-        Uri a = new Uri(myUri);
-        string sectionIdUri = HttpUtility.ParseQueryString(a.Query).Get("group_id");
-        int sectionId = Int32.Parse(sectionIdUri);
-
-        Console.WriteLine(sectionId);
-        Console.WriteLine(rowId);
-
-        _navigationSteps.MoveToTestSuitesPage(9);
         
-        _testCaseSteps.DeleteTestCase(sectionId, rowId);
+        _navigationSteps.MoveToTestSuitesPage(9);
+        Thread.Sleep(1000);
+        _testCaseSteps.DeleteTestCaseLast();
     }
 
     [Test]
+    [Order(4)]
     [Category("Regression")]
     [Description("File upload function for new test case")]
+    [AllureFeature("Positive UI Tests")]
+    [AllureSeverity(SeverityLevel.normal)]
+    [AllureOwner("Admin")]
     public void TestCaseUploadFile()
     {
 
@@ -91,9 +76,13 @@ internal class GUITests : BaseTest
     }
 
     [Test]
+    [Order(3)]
     [Category("Smoke")]
     [Category("Regression")]
     [Description("Test case title boundary")]
+    [AllureFeature("Negative UI Tests")]
+    [AllureSeverity(SeverityLevel.minor)]
+    [AllureOwner("Admin")]
     public void AddTestCaseBoundary()
     {
 
@@ -101,7 +90,7 @@ internal class GUITests : BaseTest
         _navigationSteps.MoveToAddTestCasePage(9);
 
         var f = new Faker();
-        var title = f.Random.String(250);
+        var title = f.Random.String2(260);
 
         testCase expectedTestCase = new testCase()
         {
@@ -114,28 +103,39 @@ internal class GUITests : BaseTest
 
         TestCasePage testCasePage = _testCaseSteps.AddTestCase(expectedTestCase);
         Thread.Sleep(2000);
-        Assert.That(testCasePage.Name.Text.Length, Is.EqualTo(expectedTestCase.Id.Length));
+        Assert.That(testCasePage.Name.Text.Length, Is.InRange(0,250));
     }
 
     [Test]
+    [Order(1)]
     [Category("Regression")]
     [Description("Deleteing a test case")]
+    [AllureFeature("Positive UI Tests")]
+    [AllureSeverity(SeverityLevel.critical)]
+    [AllureOwner("Admin")]
     public void DeleteTestCase()
     {
+        var sectionId = 369;
+       
         _navigationSteps.SuccessfulLogin(Admin);
         var page = _navigationSteps.MoveToTestSuitesPage(9);
-        var row = page.GetSectionByID(369)?.GetTestRow(4744);
-        row?.Delete();
-        Assert.That(page.DeleteDialog.IsDisplayed, Is.True);
+        var tempRow = page.GetSections().First().Rows.First();
+        var testrowId = tempRow.ID;
 
-        page.DeleteDialog.Submit();
-         Thread.Sleep(2000);
-        Assert.That(page.GetSectionByID(185)?.GetTestRow(2394), Is.Null);
+        _testCaseSteps.DeleteTestCaseFirst();
+
+        Thread.Sleep(2000);
+
+        Assert.That(page.GetSectionByID(sectionId)?.GetTestRow(testrowId), Is.Null);
     }
 
     [Test]
+    [Order(5)]
     [Category("Regression")]
     [Description("Dialog box display when deleting a test case")]
+    [AllureFeature("Positive UI Tests")]
+    [AllureSeverity(SeverityLevel.normal)]
+    [AllureOwner("Admin")]
     public void DialogBoxTest()
     {
         _navigationSteps.SuccessfulLogin(Admin);
@@ -148,9 +148,13 @@ internal class GUITests : BaseTest
 
 
     [Test]
+    [Order(6)]
     [Category("Smoke")]
     [Category("Regression")]
     [Description("Tooltip display after hover on test suites page")]
+    [AllureFeature("Positive UI Tests")]
+    [AllureSeverity(SeverityLevel.minor)]
+    [AllureOwner("Admin")]
     public void TooltipHoverTest()
     {
         _navigationSteps.SuccessfulLogin(Admin);
