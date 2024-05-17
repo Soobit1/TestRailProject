@@ -16,18 +16,19 @@ variables:
 
 steps:
 - task: NuGetToolInstaller@1
+  inputs:
+    versionSpec: '>=5.8'
 
 - task: NuGetCommand@2
   inputs:
-    restoreSolution: '$(solution)'
+    command: 'restore'
+    restoreSolution: '**/*.sln'
 
-- task: UseDotNet@2
-  displayName: 'Install .NET Core SDK'
-  inputs:
-    version: 8.x
-    performMultiLevelLookup: true
-    includePreviewVersions: true # Required for preview versions
-    
+- script: |
+    echo "Using .NET SDK version:"
+    dotnet --version
+  displayName: 'Check .NET SDK Version'
+  
 - task: DotNetCoreCLI@2
   displayName: 'Run test'
   inputs:
