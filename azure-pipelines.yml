@@ -4,7 +4,7 @@
 # https://docs.microsoft.com/azure/devops/pipelines/languages/dotnet-core
 
 trigger:
-- feature/testsAPI
+- dev
 
 pool: mylocalPool
 
@@ -22,6 +22,12 @@ steps:
     restoreSolution: '$(solution)'
 
 - task: DotNetCoreCLI@2
+  displayName: 'Build solution'
+  inputs:
+    command: 'build'
+    arguments: '--configuration Debug'
+- task: DotNetCoreCLI@2
+  displayName: Run test
   inputs:
     command: 'test'
     projects: 'TestRailProject/TestRailProject.csproj'
