@@ -3,8 +3,6 @@ using Microsoft.Extensions.Configuration;
 using TestRailProject.Models;
 using TestRailProject.Models.Enums;
 
-
-
 namespace TestRailProject.Helpers
 {
 public class Configurator

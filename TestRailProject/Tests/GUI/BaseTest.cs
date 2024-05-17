@@ -1,5 +1,4 @@
-﻿using Allure.Net.Commons;
-using NUnit.Framework.Interfaces;
+﻿using NUnit.Allure.Core;
 using OpenQA.Selenium;
 using TestRailProject.Core;
 using TestRailProject.Helpers;
@@ -8,7 +7,10 @@ using TestRailProject.Steps;
 
 namespace TestRailProject.Tests.GUI;
 
+[Parallelizable(scope: ParallelScope.Fixtures)]
+[FixtureLifeCycle(LifeCycle.InstancePerTestCase)]
 
+[AllureNUnit]
 public class BaseTest
 {
     protected IWebDriver Driver { get; private set; }
@@ -36,18 +38,17 @@ public class BaseTest
     [TearDown]
     public void TearDown()
     {
-        // Проверка, был ли тест сброшен
+
         try
         {
             if (TestContext.CurrentContext.Result.Outcome.Status == NUnit.Framework.Interfaces.TestStatus.Failed)
             {
-                // Создание скриншота
+
                 Screenshot screenshot = ((ITakesScreenshot)Driver).GetScreenshot();
                 byte[] screenshotBytes = screenshot.AsByteArray;
 
-                // Прикрепление скриншота к отчету Allure
-                //AllureApi.AddAttachment("Screenshot", "image/png", screenshotBytes);
-                //AllureApi.AddAttachment("error.txt", "text/plain", Encoding.UTF8.GetBytes(TestContext.CurrentContext.Result.Message));
+                AllureApi.AddAttachment("Screenshot", "image/png", screenshotBytes);
+                AllureApi.AddAttachment("error.txt", "text/plain", Encoding.UTF8.GetBytes(TestContext.CurrentContext.Result.Message));
             }
         }
         catch (Exception e)
