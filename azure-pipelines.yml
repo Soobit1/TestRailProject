@@ -13,7 +13,8 @@ variables:
   solution: '**/*.sln'
   buildPlatform: 'Any CPU'
   buildConfiguration: 'Debug'
-
+  system.debug: 'true'
+  
 steps:
 - task: NuGetToolInstaller@1
 
@@ -24,7 +25,7 @@ steps:
 - task: DotNetCoreCLI@2
   inputs:
     command: 'test'
-    projects: 'TestRailProject/TestRailProject.csproj'
+    projects: "TestRailProject/TestRailProject.csproj"
 
 - task: PublishAllureReport@1
   displayName: Publish Report
