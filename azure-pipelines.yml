@@ -14,7 +14,6 @@ variables:
   buildConfiguration: 'Debug'
 
 steps:
-
 - task: NuGetToolInstaller@0
   displayName: 'Use NuGet 6.x'
   inputs:
@@ -36,7 +35,6 @@ steps:
     command: 'test'
     projects: "TestRailProject/TestRailProject.csproj"
 
-
 - task: PublishAllureReport@1
   displayName: Publish Report
   inputs:
@@ -48,3 +46,4 @@ steps:
   inputs:
     targetPath: '$(Pipeline.Workspace)'
     publishLocation: 'pipeline'
+
