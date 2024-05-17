@@ -5,8 +5,9 @@ using System.Web;
 using TestRailProject.Models;
 using TestRailProject.Pages.ProjectPages;
 using Bogus;
-using NUnit.Allure.Attributes;
-using Allure.Commons;
+//using NUnit.Allure.Attributes;
+using Allure.NUnit.Attributes;
+using Allure.Net.Commons;
 
 
 namespace TestRailProject.Tests.GUI;
@@ -52,20 +53,9 @@ internal class GUITests : BaseTest
             Assert.That(testCasePage.Priority.Text.Remove(0, 10), Is.EqualTo(expectedTestCase.Priority));
         });
         
-        var temp1 = testCasePage.TestCaseId.Text.Trim();
-        int rowId = Int32.Parse(temp1.Remove(0, 1));
-
-        string myUri = testCasePage.Section.GetAttribute("href");
-        Uri a = new Uri(myUri);
-        string sectionIdUri = HttpUtility.ParseQueryString(a.Query).Get("group_id");
-        int sectionId = Int32.Parse(sectionIdUri);
-
-        Console.WriteLine(sectionId);
-        Console.WriteLine(rowId);
-
         _navigationSteps.MoveToTestSuitesPage(9);
-        
-        _testCaseSteps.DeleteTestCase(sectionId, rowId);
+        Thread.Sleep(1000);
+        _testCaseSteps.DeleteTestCaseLast();
     }
 
     [Test]
@@ -129,15 +119,11 @@ internal class GUITests : BaseTest
        
         _navigationSteps.SuccessfulLogin(Admin);
         var page = _navigationSteps.MoveToTestSuitesPage(9);
-
         var tempRow = page.GetSections().First().Rows.First();
-
-        Console.WriteLine(tempRow.ID);
         var testrowId = tempRow.ID;
-  
 
-        tempRow.Delete();
-        page.DeleteDialog.Submit();
+        _testCaseSteps.DeleteTestCaseFirst();
+
         Thread.Sleep(2000);
 
         Assert.That(page.GetSectionByID(sectionId)?.GetTestRow(testrowId), Is.Null);

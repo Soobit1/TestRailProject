@@ -17,12 +17,16 @@ public class BaseTest
 {
     protected IWebDriver Driver { get; private set; }
 
-
     protected NavigationSteps _navigationSteps;
     protected TestCaseSteps _testCaseSteps;
 
-
     protected User? Admin { get; private set; }
+
+    [OneTimeSetUp]
+    public static void GlobalSetup()
+    {
+            AllureLifecycle.Instance.CleanupResultDirectory();
+    }
 
     [SetUp]
     public void Setup()

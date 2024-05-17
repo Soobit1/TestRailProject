@@ -1,8 +1,5 @@
-﻿using Allure.Commons;
-using AngleSharp.Dom;
-using NUnit.Allure.Attributes;
-using NUnit.Framework;
-using TestRailProject.Helpers;
+﻿using Allure.Net.Commons;
+using Allure.NUnit.Attributes;
 using TestRailProject.Models;
 
 namespace TestRailProject.Tests.GUI;

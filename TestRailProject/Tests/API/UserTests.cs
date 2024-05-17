@@ -1,27 +1,21 @@
-﻿using NLog;
-using NUnit.Framework;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using Allure.NUnit.Attributes;
 using System.Net;
-using System.Text;
-using System.Threading.Tasks;
-using TestRailProject.Helpers;
 using TestRailProject.Models;
 
 namespace TestRailProject.Tests.API;
 
+[AllureSuite("API User Tests")]
 public class UserTestApi : BaseApiTest
 {
 
     [Test]
     [Category("NFE")]
-    [Description("GET Current user")]
+    [Description("GET request to get current user")]
     public void GetCurrentUserTest()
     {
         int user = 1;
         var actualUser = _userService.GetCurrentUser(user);
-        Console.WriteLine("Actual User: " + actualUser?.ToString());
+        //Console.WriteLine("Actual User: " + actualUser?.ToString());
        
         Assert.Multiple(() =>
         {
@@ -32,13 +26,13 @@ public class UserTestApi : BaseApiTest
 
     [Test]
     [Category("NFE")]
-    [Description("GET User by email")]
+    [Description("GET request to get user by email")]
     public void GetUserByEmail()
     {
         var email = "fevogi5662@losvtn.com";
         var actualUser = _userService.GetUserByEmail(email);
 
-        Console.WriteLine("Actual User: " + actualUser?.ToString());
+        //Console.WriteLine("Actual User: " + actualUser?.ToString());
 
         Assert.Multiple(() =>
         {
@@ -49,7 +43,7 @@ public class UserTestApi : BaseApiTest
 
     [Test]
     [Category("NFE")]
-    [Description("POST Update user params")]
+    [Description("POST request to update user parameter EmailNotifications")]
     public void UpdateUserTest()
     {
         int userId = 1;
@@ -63,7 +57,6 @@ public class UserTestApi : BaseApiTest
         };
 
         var actualUser = _userService.UpdateUser(expectedUser, userId);
-        Console.WriteLine("Actual User: " + actualUser?.ToString());
 
         Assert.Multiple(() =>
         {
@@ -74,14 +67,14 @@ public class UserTestApi : BaseApiTest
     
     [Test]
     [Category("AFE")]
-    [Description("GET non-existing user")]
+    [Description("GET request for a non-existing user. Expected Response codes for Invalid or unknown user: 400")]
     public void GetInvalidUserTest()
     {
         int userId = 10;
 
         var actualUser = _userService.GetUserAsync(userId);
 
-        //коммент чтобы был красивый отчет
+        //Коммент чтобы был красивый отчет
         //Assert.That(actualUser.Result.StatusCode, Is.EqualTo(HttpStatusCode.BadRequest));
     }
 }

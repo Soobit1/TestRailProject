@@ -44,10 +44,6 @@ public class TestCaseSteps(IWebDriver? driver) : BaseStep(driver)
 
         TestSuitesPage = new TestSuitesPage(driver);
 
-        Console.WriteLine(TestSuitesPage.GetSectionByID(sectionId));
-        Console.WriteLine(TestSuitesPage.GetSectionByID(sectionId)?.GetTestRow(rowId));
-        
-
         TestSuitesPage.GetSectionByID(sectionId)?
             .GetTestRow(rowId)?
             .Delete();
@@ -56,7 +52,32 @@ public class TestCaseSteps(IWebDriver? driver) : BaseStep(driver)
 
         return TestSuitesPage;
     }
-    
+    public TestSuitesPage DeleteTestCaseFirst()
+    {
+
+        TestSuitesPage = new TestSuitesPage(driver);
+
+        var tempRow = TestSuitesPage.GetSections().First().Rows.First();
+
+        tempRow.Delete();
+        TestSuitesPage.DeleteDialog.Submit();
+
+        return TestSuitesPage;
+    }
+
+    public TestSuitesPage DeleteTestCaseLast()
+    {
+
+        TestSuitesPage = new TestSuitesPage(driver);
+
+        var tempRow = TestSuitesPage.GetSections().First().Rows.Last();
+
+        tempRow.Delete();
+        TestSuitesPage.DeleteDialog.Submit();
+
+        return TestSuitesPage;
+    }
+
     public bool FileUpload(string fileName, int suiteId)
     {
         string assemblyPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
@@ -68,16 +89,4 @@ public class TestCaseSteps(IWebDriver? driver) : BaseStep(driver)
 
         return AddTestCasePage.AttachedItem.Displayed;
     }
-
-    /*
-    public DeleteDialog DialogDeleteTest()
-    {
-        DeleteDialog deleteDialog = new DeleteDialog();
-
-        deleteDialog.ClickDeletePermanently();
-
-        deleteDialog.ClickDeletePermanently();
-
-        return deleteDialog;
-    }*/
 }
