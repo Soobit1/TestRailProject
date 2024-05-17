@@ -32,13 +32,13 @@ steps:
   displayName: 'Run test'
   inputs:
     command: 'test'
-    projects: 'TestRailProject/TestRailProject.csproj'
+    projects: "TestRailProject/TestRailProject.csproj"
 
 - task: PublishAllureReport@1
   displayName: Publish Report
   inputs:
     allureVersion: '2.27.0'
-    testResultsDir: TestRailProject/bin/Debug/net8.0/allure-results
+    testResultsDir: "TestRailProject/bin/Debug/net8.0/allure-results"
     reportName: Report
 
 - task: PublishPipelineArtifact@1
