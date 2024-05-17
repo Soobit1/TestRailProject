@@ -8,25 +8,26 @@ trigger:
 
 pool: mylocalPool
 
-
 variables:
   solution: '**/*.sln'
   buildPlatform: 'Any CPU'
   buildConfiguration: 'Debug'
-  system.debug: 'true'
 
 steps:
-- task: NuGetToolInstaller@1
+- task: NuGetToolInstaller@0
+  displayName: 'Use NuGet 6.x'
+  inputs:
+    versionSpec: 6.x
+
+- task: NuGetCommand@2
+  inputs:
+    restoreSolution: '$(solution)'
 
 - task: DotNetCoreCLI@2
   inputs:
     command: 'test'
     projects: "TestRailProject/TestRailProject.csproj"
 
-- script: |
-    dotnet restore
-    dotnet build
-  displayName: 'Restore and Build'
 
 - task: PublishAllureReport@1
   displayName: Publish Report
