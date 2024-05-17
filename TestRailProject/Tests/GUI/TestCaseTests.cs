@@ -51,7 +51,7 @@ internal class GUITests : BaseTest
             Assert.That(testCasePage.Type.Text.Remove(0, 6), Is.EqualTo(expectedTestCase.Type));
             Assert.That(testCasePage.Priority.Text.Remove(0, 10), Is.EqualTo(expectedTestCase.Priority));
         });
-        /*
+        
         var temp1 = testCasePage.TestCaseId.Text.Trim();
         int rowId = Int32.Parse(temp1.Remove(0, 1));
 
@@ -65,7 +65,7 @@ internal class GUITests : BaseTest
 
         _navigationSteps.MoveToTestSuitesPage(9);
         
-        _testCaseSteps.DeleteTestCase(sectionId, rowId);*/
+        _testCaseSteps.DeleteTestCase(sectionId, rowId);
     }
 
     [Test]
@@ -126,18 +126,9 @@ internal class GUITests : BaseTest
     public void DeleteTestCase()
     {
         var sectionId = 369;
-        //todo
-        var testRow = 4765;
-        
+       
         _navigationSteps.SuccessfulLogin(Admin);
         var page = _navigationSteps.MoveToTestSuitesPage(9);
-        /*var row = page.GetSectionByID(sectionId)?.GetTestRow(testRow);
-
-        row?.Delete();
-
-        page.DeleteDialog.Submit();
-        Thread.Sleep(2000);
-        Assert.That(page.GetSectionByID(sectionId)?.GetTestRow(testRow), Is.Null);*/
 
         var tempRow = page.GetSections().First().Rows.First();
 
