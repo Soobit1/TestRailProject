@@ -71,17 +71,16 @@ public class UserTestApi : BaseApiTest
             Assert.That(actualUser?.EmailNotifications, Is.EqualTo(EmailNotifications));
         });
     }
-
+    
     [Test]
     [Category("AFE")]
-    [Description("GET User non-existing user")]
+    [Description("GET non-existing user")]
     public void GetInvalidUserTest()
     {
         int userId = 10;
 
         var actualUser = _userService.GetUserAsync(userId);
 
-        //Корректный асерт - Assert.That(actualUser.Result.StatusCode, Is.EqualTo(HttpStatusCode.BadRequest));
-        Assert.That(actualUser.Result.StatusCode, Is.EqualTo(HttpStatusCode.OK));
+        Assert.That(actualUser.Result.StatusCode, Is.EqualTo(HttpStatusCode.BadRequest));
     }
 }
