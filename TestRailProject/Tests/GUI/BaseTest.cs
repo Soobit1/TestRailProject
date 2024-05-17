@@ -1,5 +1,7 @@
-﻿using NUnit.Allure.Core;
+﻿using Allure.Net.Commons;
+using NUnit.Allure.Core;
 using OpenQA.Selenium;
+using System.Text;
 using TestRailProject.Core;
 using TestRailProject.Helpers;
 using TestRailProject.Models;
