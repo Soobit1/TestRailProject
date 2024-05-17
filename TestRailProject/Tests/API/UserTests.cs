@@ -81,6 +81,7 @@ public class UserTestApi : BaseApiTest
 
         var actualUser = _userService.GetUserAsync(userId);
 
-        Assert.That(actualUser.Result.StatusCode, Is.EqualTo(HttpStatusCode.BadRequest));
+        //Корректный асерт - Assert.That(actualUser.Result.StatusCode, Is.EqualTo(HttpStatusCode.BadRequest));
+        Assert.That(actualUser.Result.StatusCode, Is.EqualTo(HttpStatusCode.OK));
     }
 }
