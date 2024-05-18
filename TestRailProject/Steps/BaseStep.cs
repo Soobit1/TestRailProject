@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using TestRailProject.Pages.ProjectPages;
 using TestRailProject.Pages;
 
 public class BaseStep(IWebDriver driver)

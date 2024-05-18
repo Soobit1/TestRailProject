@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using TestRailProject.Elements;
 using TestRailProject.Helpers;
 
-namespace TestRailProject.Pages.ProjectPages
+namespace TestRailProject.Pages
 {
     public class TestSuitesPage(IWebDriver? driver, int? suiteId = null, bool openByURL = false) : BasePage(driver, openByURL)
     {

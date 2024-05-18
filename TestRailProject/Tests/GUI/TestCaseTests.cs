@@ -3,11 +3,11 @@ using OpenQA.Selenium;
 using OpenQA.Selenium.Interactions;
 using System.Web;
 using TestRailProject.Models;
-using TestRailProject.Pages.ProjectPages;
 using Bogus;
 //using NUnit.Allure.Attributes;
 using Allure.NUnit.Attributes;
 using Allure.Net.Commons;
+using TestRailProject.Pages;
 
 
 namespace TestRailProject.Tests.GUI;

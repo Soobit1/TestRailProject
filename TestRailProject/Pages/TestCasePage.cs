@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TestRailProject.Elements;
 
-namespace TestRailProject.Pages.ProjectPages;
+namespace TestRailProject.Pages;
 
 
 public class TestCasePage(IWebDriver? driver, bool openByURL = false) : BasePage(driver, openByURL)
@@ -55,4 +55,4 @@ public class TestCasePage(IWebDriver? driver, bool openByURL = false) : BasePage
     public IWebElement TestCaseId => WaitsHelper.WaitForExists(IdBy);
 }
 
-    
+

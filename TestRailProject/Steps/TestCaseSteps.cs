@@ -11,7 +11,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TestRailProject.Elements;
 using TestRailProject.Models;
-using TestRailProject.Pages.ProjectPages;
+using TestRailProject.Pages;
 using static System.Collections.Specialized.BitVector32;
 
 namespace TestRailProject.Steps;

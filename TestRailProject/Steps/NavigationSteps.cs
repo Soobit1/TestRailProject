@@ -5,7 +5,6 @@ using System;
 using TestRailProject.Elements;
 using TestRailProject.Models;
 using TestRailProject.Pages;
-using TestRailProject.Pages.ProjectPages;
 
 namespace TestRailProject.Steps;
 
@@ -37,19 +36,6 @@ public class NavigationSteps(IWebDriver? driver) : BaseStep(driver)
         return Login<LoginPage>(user);
     }
 
-    /*
-    public void SelectElement(IWebElement element, string value)
-    {
-        var selectedElement = Driver.FindElement(By.Name(id));
-        var SelectElement = new SelectElement(selectedElement);
-
-        SelectElement.SelectByValue(value);
-    }*/
-
-    public ProjectDetailsPage MoveToProjectDetailsPage()
-    {   
-        return new ProjectDetailsPage(Driver, true);
-    }
 
     public AddTestCasePage MoveToAddTestCasePage(int suiteId)
     {
@@ -59,12 +45,6 @@ public class NavigationSteps(IWebDriver? driver) : BaseStep(driver)
     public TestSuitesPage MoveToTestSuitesPage(int suiteId)
     {
         return new TestSuitesPage(Driver, suiteId, true);
-    }
-
-    public ProjectDetailsPage ClickOnProject(IWebElement webElement)
-    {
-        DashboardPage.TargetProject.Click();
-        return new ProjectDetailsPage(Driver);
     }
 
 }
